@@ -3,6 +3,10 @@ pipeline {
     environment {
         JAVA_HOME = "/usr/lib/jvm/java-11-openjdk-amd64"
     }
+    tools{
+        jdk 'JDK11' // Jenkins에서 설정한 JDK 이름
+    }
+
 
     stages {
         stage('SCM Checkout') {
