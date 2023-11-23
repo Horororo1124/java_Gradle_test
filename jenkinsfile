@@ -3,9 +3,6 @@ pipeline {
     tools {
         jdk 'JDK11' // Jenkins에서 설정한 JDK 이름
     }
-    stages{
---stacktrace
-}
 
     stages {
         stage('SCM Checkout') {
