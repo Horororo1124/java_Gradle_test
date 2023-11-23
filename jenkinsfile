@@ -43,6 +43,7 @@ pipeline {
                     sh './gradlew sonarqube'
                     sh './gradlew sonarqube -Dorg.gradle.java.home=/usr/lib/jvm/java-11-openjdk-amd64'
                     sh './gradlew sonarqube --stacktrace'
+                    sh './gradlew sonarqube -Dorg.gradle.java.home=/usr/lib/jvm/java-11-openjdk-amd64 --stacktrace'
                 }
             }
         }
