@@ -5,7 +5,7 @@ environment {
     }
     java{
         toolchain{
-            langueVersion.set(JavaLangueVersion.of(11)
+           languageVersion.set(JavaLanguageVersion.of(11))
         }
     }
 
