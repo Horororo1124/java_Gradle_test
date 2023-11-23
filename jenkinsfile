@@ -2,18 +2,14 @@ pipeline {
     agent any
     environment {
         JAVA_HOME = '/usr/lib/jvm/java-11-openjdk-amd64'
-        
     }
-    tools{
-        jdk 'JDK11' // Jenkins에서 설정한 JDK 이름
-        
+    tools {
+        jdk 'JDK11'
     }
-
     stages {
         stage('SCM Checkout') {
             steps {
-                git branch: "master",
-                url: "https://github.com/Horororo1124/java_Gradle_test.git"
+                git branch: 'master', url: 'https://github.com/Horororo1124/java_Gradle_test.git'
             }
         }
         stage('Preparation') {
@@ -23,40 +19,26 @@ pipeline {
         }
         stage('Echo JAVA_HOME') {
             steps {
-                // JAVA_HOME 값을 출력합니다.
-                sh 'echo $JAVA_HOME'
+                sh 'echo ${JAVA_HOME}' // 단일 따옴표가 아닌 이중 따옴표를 사용
             }
         }
         stage('Build') {
             steps {
-                // 프로젝트 루트에서 gradlew 실행 권한 부여 (Linux 환경에만 적용)
-                sh 'chmod +x ./gradlew'
-                // 프로젝트 루트에서 Gradle 빌드 실행
                 sh './gradlew build'
             }
         }
-
         stage('Test') {
             steps {
                 sh './gradlew test'
             }
         }
-
         stage('SonarQube analysis') {
             steps {
-                withSonarQubeEnv('SonarQube_Server') { 
+                withSonarQubeEnv('SonarQube_Server') {
                     sh './gradlew sonarqube'
-                    sh './gradlew sonarqube -Dorg.gradle.java.home=/usr/lib/jvm/java-11-openjdk-amd64'
-                    sh './gradlew sonarqube -Dorg.gradle.java.home=/usr/lib/jvm/java-11-openjdk-amd64 --stacktrace'
                     sh './gradlew sonarqube -Dorg.gradle.java.home=${"JAVA_HOME"} --stacktrace'
 
-
-
-                    sh './gradlew sonarqube --info'
-                    sh './gradlew sonarqube --debug'
-
-
-                    sh './gradlew sonarqube -Dsonar.projectKey=test_Jenkins -Dsonar.host.url=http://211.199.70.9:9000/ -Dsonar.login=sqp_ba34bb85fd867b97bcc39fcba7d4e2eafee52ce7'
+                    sh "./gradlew sonarqube -Dsonar.projectKey=test_Jenkins -Dsonar.host.url=http://211.199.70.9:9000/ -Dsonar.login=sqp_ba34bb85fd867b97bcc39fcba7d4e2eafee52ce7"
                 }
             }
         }
