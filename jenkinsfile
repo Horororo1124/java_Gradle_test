@@ -2,9 +2,11 @@ pipeline {
     agent any
     environment {
         JAVA_HOME = "/usr/lib/jvm/java-11-openjdk-amd64"
+        sh 'echo $JAVA_HOME
     }
     tools{
         jdk 'JDK11' // Jenkins에서 설정한 JDK 이름
+        sh 'echo $JAVA_HOME
     }
 
 
