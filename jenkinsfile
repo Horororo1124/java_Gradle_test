@@ -1,17 +1,7 @@
 pipeline {
     agent any
-environment {
+    environment {
         JAVA_HOME = "/usr/lib/jvm/java-11-openjdk-amd64"
-    }
-    java{
-        toolchain{
-           languageVersion.set(JavaLanguageVersion.of(11))
-        }
-    }
-
-
-    tools {
-        jdk 'JDK11' // Jenkins에서 설정한 JDK 이름
     }
 
     stages {
@@ -27,28 +17,27 @@ environment {
                 sh 'chmod +x ./gradlew'
                 // 프로젝트 루트에서 Gradle 빌드 실행
                 sh './gradlew build'
-                sh './gradlew build --stacktrace'
             }
         }
-    
+
         stage('Test') {
             steps {
-                    sh './gradlew test'
-
-                sh './gradlew build --stacktrace'
+                sh './gradlew test'
             }
         }
-            
+
         stage('SonarQube analysis') {
             steps {
-                
                 withSonarQubeEnv('SonarQube_Server') { 
-                        
-                        sh './gradlew sonarqube'
-                sh './gradlew build --stacktrace'
-                    }
-                
+                    sh './gradlew sonarqube'
+                }
             }
+        }
+    }
+
+    post {
+        always {
+            // 빌드 후에 정리 작업을 추가할 수 있습니다.
         }
     }
 }
