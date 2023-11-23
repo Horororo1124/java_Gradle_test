@@ -8,20 +8,18 @@ pipeline {
         jdk 'JDK11' // Jenkins에서 설정한 JDK 이름
         
     }
-stages {
-        stage('Print JAVA_HOME') {
-            steps {
-                // JAVA_HOME 값 출력
-                sh 'echo $JAVA_HOME'
-            }
-        }
-
 
     stages {
         stage('SCM Checkout') {
             steps {
                 git branch: "master",
                 url: "https://github.com/Horororo1124/java_Gradle_test.git"
+            }
+        }
+        stage('Echo JAVA_HOME') {
+            steps {
+                // JAVA_HOME 값을 출력합니다.
+                sh 'echo $JAVA_HOME'
             }
         }
         stage('Build') {
