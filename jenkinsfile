@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+    environment {
+        JAVA_HOME = "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"
+    }
+    tools{
+        jdk 'JDK11' // Jenkins에서 설정한 JDK 이름
+    }
+
+
+    stages {
+        stage('SCM Checkout') {
+            steps {
+                git branch: "master",
+                url: "https://github.com/Horororo1124/java_Gradle_test.git"
+            }
+        }
+        stage('Build') {
+            steps {
+                // 프로젝트 루트에서 gradlew 실행 권한 부여 (Linux 환경에만 적용)
+                sh 'chmod +x ./gradlew'
+                // 프로젝트 루트에서 Gradle 빌드 실행
+                sh './gradlew build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh './gradlew test'
+            }
+        }
+
+        stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube_Server') { 
+                    sh './gradlew sonarqube'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // 빌드 후에 실행할 작업을 추가할 수 있습니다.
+            echo '빌드가 완료되었습니다.'
+        }
+    }
+}
