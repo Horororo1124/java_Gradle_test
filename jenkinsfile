@@ -16,6 +16,11 @@ pipeline {
                 url: "https://github.com/Horororo1124/java_Gradle_test.git"
             }
         }
+        stage('Preparation') {
+            steps {
+                sh 'chmod +x ./gradlew'
+            }
+        }
         stage('Echo JAVA_HOME') {
             steps {
                 // JAVA_HOME 값을 출력합니다.
