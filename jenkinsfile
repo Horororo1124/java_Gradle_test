@@ -31,7 +31,7 @@ pipeline {
             
         stage('SonarQube analysis') {
             steps {
-                withSonarQubeEnv('SanarQube_Server') { 
+                withSonarQubeEnv('SonarQube_Server') { 
                         sh './gradlew sonarqube'
                 sh './gradlew build --stacktrace'
                     }
