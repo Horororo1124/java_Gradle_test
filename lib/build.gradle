@@ -9,7 +9,16 @@
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
-   
+    id 'org.sonarqube' version '3.3'
+}
+sonarqube {
+    properties {
+        property "sonar.projectKey", "your_project_key"
+        property "sonar.host.url", "http://your_sonar_server_url"
+        // 인증이 필요한 경우
+        property "sonar.login", "your_sonar_login"
+        property "sonar.password", "your_sonar_password"
+    }
 }
 
 repositories {
