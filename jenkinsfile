@@ -36,7 +36,17 @@ environment {
             
         stage('SonarQube analysis') {
             steps {
+                sonarqube{
+                    properties{
+                        property "sqp_ba34bb85fd867b97bcc39fcba7d4e2eafee52ce7", "test_Jenkins"
+                        property "http://211.199.70.9:9000/"
+                    }
+                }
                 withSonarQubeEnv('SonarQube_Server') { 
+                        script{
+                            sqProperties.each { key, value ->
+                                properties([[$class: 'SonarQubeProperty', key: key, value: value]])
+                        }
                         sh './gradlew sonarqube'
                 sh './gradlew build --stacktrace'
                     }
