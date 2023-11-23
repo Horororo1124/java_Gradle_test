@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    tools{
-        java 'OpenJDK 11' 
-        }
+    tools {
+        jdk 'OpenJDK 11' // Jenkins에서 설정한 JDK 이름
+    }
 
     stages {
         stage('SCM Checkout') {
