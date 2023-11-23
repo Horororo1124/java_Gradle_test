@@ -55,6 +55,9 @@ pipeline {
 
                     sh './gradlew sonarqube --info'
                     sh './gradlew sonarqube --debug'
+
+
+                    sh './gradlew sonarqube -Dsonar.projectKey=test_Jenkins -Dsonar.host.url=http://211.199.70.9:9000/ -Dsonar.login=sqp_ba34bb85fd867b97bcc39fcba7d4e2eafee52ce7'
                 }
             }
         }
