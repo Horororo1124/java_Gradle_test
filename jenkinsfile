@@ -50,6 +50,11 @@ pipeline {
                     sh './gradlew sonarqube -Dorg.gradle.java.home=/usr/lib/jvm/java-11-openjdk-amd64'
                     sh './gradlew sonarqube -Dorg.gradle.java.home=/usr/lib/jvm/java-11-openjdk-amd64 --stacktrace'
                     sh './gradlew sonarqube -Dorg.gradle.java.home=${JAVA_HOME} --stacktrace'
+
+
+
+                    sh './gradlew sonarqube --info'
+                    sh './gradlew sonarqube --debug'
                 }
             }
         }
