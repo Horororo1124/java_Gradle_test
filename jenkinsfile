@@ -1,18 +1,25 @@
 pipeline {
     agent any
     environment {
-        JAVA_HOME = "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"
+        JAVA_HOME = "/usr/lib/jvm/java-11-openjdk-amd64"
+        
     }
     tools{
         jdk 'JDK11' // Jenkins에서 설정한 JDK 이름
+        
     }
-
 
     stages {
         stage('SCM Checkout') {
             steps {
                 git branch: "master",
                 url: "https://github.com/Horororo1124/java_Gradle_test.git"
+            }
+        }
+        stage('Echo JAVA_HOME') {
+            steps {
+                // JAVA_HOME 값을 출력합니다.
+                sh 'echo $JAVA_HOME'
             }
         }
         stage('Build') {
