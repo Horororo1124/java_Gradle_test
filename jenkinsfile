@@ -43,10 +43,7 @@ environment {
                     }
                 }
                 withSonarQubeEnv('SonarQube_Server') { 
-                        script{
-                            sqProperties.each { key, value ->
-                                properties([[$class: 'SonarQubeProperty', key: key, value: value]])
-                        }
+                        
                         sh './gradlew sonarqube'
                 sh './gradlew build --stacktrace'
                     }
