@@ -1,11 +1,6 @@
 pipeline {
     agent any
-    environment {
-        JAVA_HOME = '/usr/lib/jvm/java-11-openjdk-amd64'
-    }
-    tools {
-        jdk 'JDK11'
-    }
+   
     stages {
         stage('SCM Checkout') {
             steps {
@@ -15,11 +10,6 @@ pipeline {
         stage('Preparation') {
             steps {
                 sh 'chmod +x ./gradlew'
-            }
-        }
-        stage('Echo JAVA_HOME') {
-            steps {
-                sh 'echo ${JAVA_HOME}' // 단일 따옴표가 아닌 이중 따옴표를 사용
             }
         }
         stage('Build') {
@@ -35,10 +25,8 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('SonarQube_Server') {
-                    sh './gradlew sonarqube'
-                    sh './gradlew sonarqube -Dorg.gradle.java.home=${"JAVA_HOME"} --stacktrace'
-
                     sh "./gradlew sonarqube -Dsonar.projectKey=test_Jenkins -Dsonar.host.url=http://211.199.70.9:9000/ -Dsonar.login=sqp_ba34bb85fd867b97bcc39fcba7d4e2eafee52ce7"
+                    sh './gradlew sonarqube'
                 }
             }
         }
