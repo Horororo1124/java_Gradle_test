@@ -13,11 +13,11 @@ plugins {
 }
 sonarqube {
     properties {
-        property "sonar.projectKey", "your_project_key"
-        property "sonar.host.url", "http://your_sonar_server_url"
+        property "sonar.projectKey", "test_Jenkins"
+        property "sonar.host.url", "http://211.199.70.9:9000/l"
         // 인증이 필요한 경우
-        property "sonar.login", "your_sonar_login"
-        property "sonar.password", "your_sonar_password"
+        property "sonar.login", "admin
+        property "sonar.password", "admin1234"
     }
 }
 
